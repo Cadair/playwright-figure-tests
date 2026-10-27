@@ -3,6 +3,10 @@ Figure-like object bridging pre-rendered PNG bytes into pytest-mpl.
 
 pytest-mpl hashes the bytes written by ``fig.savefig(path)``, this
 implements a duck-typed Figure like class with a ``savefig`` method.
+
+``FigureLike`` generalises the ``DummyFigure`` class from glue-jupyter
+(``glue_jupyter/tests/helpers.py``), which is BSD-3-Clause licensed, adding
+optional deterministic PNG chunk stripping (see :func:`_normalize_png`).
 """
 
 import os
