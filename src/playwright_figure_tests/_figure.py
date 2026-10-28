@@ -45,9 +45,7 @@ def _normalize_png(data):
         mid-chunk.
     """
     if data[:8] != _PNG_SIGNATURE:
-        raise ValueError(
-            "FigureLike expected PNG bytes; the PNG signature was not found."
-        )
+        raise ValueError("FigureLike expected PNG bytes; the PNG signature was not found.")
 
     out = bytearray(_PNG_SIGNATURE)
     pos = 8
@@ -55,15 +53,15 @@ def _normalize_png(data):
     while pos < n:
         if pos + 8 > n:
             raise ValueError("Truncated PNG: incomplete chunk header.")
-        length = int.from_bytes(data[pos:pos + 4], "big")
-        chunk_type = data[pos + 4:pos + 8]
+        length = int.from_bytes(data[pos : pos + 4], "big")
+        chunk_type = data[pos + 4 : pos + 8]
         data_start = pos + 8
         data_end = data_start + length
         if data_end + 4 > n:
             raise ValueError("Truncated PNG: incomplete chunk body or CRC.")
         if chunk_type in _CRITICAL_CHUNKS:
             # length + type + data + crc, verbatim (CRC stays valid).
-            out += data[pos:data_end + 4]
+            out += data[pos : data_end + 4]
         pos = data_end + 4
     return bytes(out)
 

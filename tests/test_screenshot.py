@@ -20,9 +20,7 @@ def test_stable_for_static_content(page):
     """
     Assert two captures of static content are byte-identical.
     """
-    page.set_content(
-        '<div id="t" style="width:100px;height:100px;background:#3498db"></div>'
-    )
+    page.set_content('<div id="t" style="width:100px;height:100px;background:#3498db"></div>')
     a = screenshot_when_stable(page, page.locator("#t"))
     b = screenshot_when_stable(page, page.locator("#t"))
     assert a == b
@@ -59,7 +57,5 @@ def test_terminates_at_max_iterations(page):
       }, 16);
     </script>
     """)
-    shot = screenshot_when_stable(
-        page, page.locator("#t"), interval=50, max_iterations=3
-    )
+    shot = screenshot_when_stable(page, page.locator("#t"), interval=50, max_iterations=3)
     assert shot[:8] == _PNG_SIG

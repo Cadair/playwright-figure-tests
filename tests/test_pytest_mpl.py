@@ -14,6 +14,7 @@ _PNG_SIG = b"\x89PNG\r\n\x1a\n"
 
 # Minimal PNG builder (truecolor RGB, filter type 0, single IDAT chunk).
 
+
 def _chunk(chunk_type, data):
     crc = zlib.crc32(chunk_type + data) & 0xFFFFFFFF
     return struct.pack(">I", len(data)) + chunk_type + data + struct.pack(">I", crc)
@@ -27,7 +28,7 @@ def _idat(rgb, width, height):
     raw = bytearray()
     for y in range(height):
         raw.append(0)  # filter type: None
-        raw += rgb[y * width * 3:(y + 1) * width * 3]
+        raw += rgb[y * width * 3 : (y + 1) * width * 3]
     return _chunk(b"IDAT", zlib.compress(bytes(raw)))
 
 
@@ -43,7 +44,7 @@ PNG_WHITE = _png(b"\xff" * (_SIDE * _SIDE * 3), _SIDE, _SIDE)
 
 
 def _figure_test_source(png_bytes):
-    return f'''
+    return f"""
 import pytest
 
 from playwright_figure_tests._figure import FigureLike
@@ -54,7 +55,7 @@ PNG = {png_bytes!r}
 @pytest.mark.mpl_image_compare
 def test_fig():
     return FigureLike(PNG)
-'''
+"""
 
 
 def _generate(pytester, baseline_dir):

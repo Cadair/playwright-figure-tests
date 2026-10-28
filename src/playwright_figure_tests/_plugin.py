@@ -1,9 +1,10 @@
 """
 pytest plugin exposing the ``screenshot`` fixture.
 """
-import pytest
 
-from playwright.sync_api import Page, Locator
+import pytest
+from playwright.sync_api import Locator, Page
+
 from playwright_figure_tests import FigureLike
 
 from ._screenshot import screenshot_when_stable
@@ -63,7 +64,9 @@ class Screenshot:
         figure
             The figure object to be returned from the test.
         """
-        return self.from_bytes(screenshot_when_stable(self.page, locator, **kwargs), deterministic=deterministic)
+        return self.from_bytes(
+            screenshot_when_stable(self.page, locator, **kwargs), deterministic=deterministic
+        )
 
     def from_bytes(self, bytes: bytes, *, deterministic: bool = True) -> FigureLike:
         """

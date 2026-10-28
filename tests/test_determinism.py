@@ -13,10 +13,10 @@ from playwright_figure_tests._screenshot import screenshot_when_stable
 
 _STATIC_HTML = (
     '<div id="t" style="width:120px;height:80px;'
-    'background:#3498db;color:#ffffff;font-family:sans-serif;'
+    "background:#3498db;color:#ffffff;font-family:sans-serif;"
     'display:flex;align-items:center;justify-content:center">'
-    'deterministic'
-    '</div>'
+    "deterministic"
+    "</div>"
 )
 
 

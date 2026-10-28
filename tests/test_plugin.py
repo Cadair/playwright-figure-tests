@@ -47,9 +47,7 @@ def test_from_locator_is_deterministic(page):
     """
     Assert two from_locator captures of static content save identical bytes.
     """
-    page.set_content(
-        '<div id="t" style="width:100px;height:100px;background:#3498db"></div>'
-    )
+    page.set_content('<div id="t" style="width:100px;height:100px;background:#3498db"></div>')
     shot = Screenshot(page)
     a = _savefig_bytes(shot.from_locator(page.locator("#t")))
     b = _savefig_bytes(shot.from_locator(page.locator("#t")))
@@ -61,9 +59,7 @@ def test_from_url_captures_page(page):
     Assert from_url navigates and captures the whole page as PNG.
     """
     shot = Screenshot(page)
-    url = _data_url(
-        '<div id="t" style="width:100px;height:100px;background:#3498db"></div>'
-    )
+    url = _data_url('<div id="t" style="width:100px;height:100px;background:#3498db"></div>')
     fig = shot.from_url(url)
     assert _savefig_bytes(fig)[:8] == _PNG_SIG
 
@@ -90,9 +86,7 @@ def test_from_url_is_deterministic(page):
     Assert two from_url captures of the same page save identical bytes.
     """
     shot = Screenshot(page)
-    url = _data_url(
-        '<div id="t" style="width:100px;height:100px;background:#3498db"></div>'
-    )
+    url = _data_url('<div id="t" style="width:100px;height:100px;background:#3498db"></div>')
     a = _savefig_bytes(shot.from_url(url))
     b = _savefig_bytes(shot.from_url(url))
     assert a == b

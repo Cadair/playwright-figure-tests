@@ -36,7 +36,7 @@ def _idat(rgb, width, height):
     raw = bytearray()
     for y in range(height):
         raw.append(0)  # filter type: None
-        raw += rgb[y * stride:(y + 1) * stride]
+        raw += rgb[y * stride : (y + 1) * stride]
     return _chunk(b"IDAT", zlib.compress(bytes(raw)))
 
 
@@ -53,8 +53,8 @@ def _parse_chunks(png):
     chunks = []
     pos = 8
     while pos < len(png):
-        length = int.from_bytes(png[pos:pos + 4], "big")
-        chunks.append((png[pos + 4:pos + 8], png[pos + 8:pos + 8 + length]))
+        length = int.from_bytes(png[pos : pos + 4], "big")
+        chunks.append((png[pos + 4 : pos + 8], png[pos + 8 : pos + 8 + length]))
         pos = pos + 12 + length
     return chunks
 
@@ -67,7 +67,7 @@ def _decode_rgb(png, width, height):
     pos = 0
     for _ in range(height):
         assert raw[pos] == 0, "test helper only handles filter type 0"
-        rgb += raw[pos + 1:pos + 1 + stride]
+        rgb += raw[pos + 1 : pos + 1 + stride]
         pos += 1 + stride
     return bytes(rgb)
 
@@ -100,6 +100,7 @@ def png_with_text():
 # _normalize_png
 # ---------------------------------------------------------------------------
 
+
 def test_normalize_strips_ancillary_keeps_critical(png_with_text):
     types = [ctype for ctype, _ in _parse_chunks(_normalize_png(png_with_text))]
     assert types == [b"IHDR", b"IDAT", b"IEND"]
@@ -119,7 +120,7 @@ def test_normalize_preserves_multiple_idat():
     raw = bytearray()
     for y in range(H):
         raw.append(0)
-        raw += PIXELS[y * stride:(y + 1) * stride]
+        raw += PIXELS[y * stride : (y + 1) * stride]
     compressed = zlib.compress(bytes(raw))
     half = len(compressed) // 2
     png = _png(
@@ -156,6 +157,7 @@ def test_normalize_rejects_truncated_chunk():
 # ---------------------------------------------------------------------------
 # FigureLike.savefig
 # ---------------------------------------------------------------------------
+
 
 def test_savefig_writes_raw_bytes_to_path(tmp_path, png_minimal):
     fig = FigureLike(png_minimal, deterministic=False)

@@ -9,7 +9,7 @@ _HTML = '<div id="t" style="width:100px;height:100px;background:red"></div>'
 
 
 def _both_methods_source():
-    return f'''
+    return f"""
 from urllib.parse import quote
 
 import pytest
@@ -27,11 +27,11 @@ def test_from_locator(screenshot, page):
 @pytest.mark.mpl_image_compare
 def test_from_url(screenshot):
     return screenshot.from_url(URL)
-'''
+"""
 
 
 def _locator_source(color):
-    return f'''
+    return f"""
 import pytest
 
 @pytest.mark.mpl_image_compare
@@ -40,7 +40,7 @@ def test_from_locator(screenshot, page):
         '<div id="t" style="width:100px;height:100px;background:{color}"></div>'
     )
     return screenshot.from_locator(page.locator("#t"))
-'''
+"""
 
 
 def _generate(pytester, baseline_dir, browser):

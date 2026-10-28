@@ -9,12 +9,12 @@ using Playwright, built on top of pytest-mpl.
 from importlib.metadata import PackageNotFoundError, version
 
 from ._figure import FigureLike
-from ._screenshot import screenshot_when_stable
 from ._plugin import Screenshot
+from ._screenshot import screenshot_when_stable
 
 try:
     __version__ = version("playwright_figure_tests")
 except PackageNotFoundError:
     __version__ = "unknown"
 
-__all__ = ["Screenshot", "FigureLike", "screenshot_when_stable", "__version__"]
+__all__ = ["FigureLike", "Screenshot", "__version__", "screenshot_when_stable"]
