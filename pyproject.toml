@@ -38,6 +38,9 @@ dynamic = [
 file = "README.rst"
 content-type = "text/x-rst"
 
+[project.entry-points.pytest11]
+playwright_figure_tests = "playwright_figure_tests._plugin"
+
 [tool.setuptools]
 zip-safe = true
 include-package-data = true
@@ -48,4 +51,5 @@ where = [
 ]
 namespaces = false
 
-[tool.setuptools_scm]
+[tool.ruff]
+line-length = 100

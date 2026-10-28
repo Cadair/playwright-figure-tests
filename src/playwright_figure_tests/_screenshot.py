@@ -11,10 +11,24 @@ the result robust against these render races.
 (``glue_jupyter/tests/helpers.py``), which is BSD-3-Clause licensed.
 """
 
+from typing import Protocol
+
+from playwright.sync_api import Page
+
 __all__ = ["screenshot_when_stable"]
 
 
-def screenshot_when_stable(page, locator, *, interval=200, max_iterations=25):
+class _Screenshotable(Protocol):
+    def screenshot(self) -> bytes: ...
+
+
+def screenshot_when_stable(
+    page: Page,
+    locator: _Screenshotable,
+    *,
+    interval: int = 200,
+    max_iterations: int = 25,
+) -> bytes:
     """
     Take a screenshot of ``locator`` once its rendered content has settled.
 
@@ -27,14 +41,14 @@ def screenshot_when_stable(page, locator, *, interval=200, max_iterations=25):
 
     Parameters
     ----------
-    page : playwright.sync_api.Page
+    page
         The Playwright page owning ``locator``. Used to wait for load state
         and to schedule the inter-capture pause.
-    locator : playwright.sync_api.Locator
+    locator
         The element to screenshot. Must support ``locator.screenshot()``
-    interval : int, default 200
+    interval
         Milliseconds to wait between consecutive captures.
-    max_iterations : int, default 25
+    max_iterations
         Maximum number of comparison captures. If the content never settles,
         the most recent screenshot is returned after this many iterations.
 
