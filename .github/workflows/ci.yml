@@ -22,8 +22,4 @@ jobs:
       submodules: false
       posargs: "--browser chromium --browser firefox"
       envs: |
-        - linux: py310
-        - linux: py311
-        - linux: py312
-        - linux: py313
-        - linux: py314
+        - linux: py3*
