@@ -37,3 +37,6 @@ playwright/.cache/
 .idea/
 .vscode/
 *.swp
+
+
+flake.lock
